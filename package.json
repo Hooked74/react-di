@@ -1,6 +1,6 @@
 {
   "name": "@hooked74/react-di",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Dependency injection for react based upon inversify.",
   "scripts": {
     "test": "project-tools test --bail --colors --coverage --passWithNoTests",

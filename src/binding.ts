@@ -1,8 +1,9 @@
-import { Container } from "inversify";
+import { Container, interfaces } from "inversify";
 
 const bindings: H74_RD.BindingHandlers = {
   useClass: (container: Container, { provide, useClass, noSingleton }: H74_RD.ClassBinding) => {
-    if (noSingleton) container.bind(provide).to(useClass).inTransientScope();
+    const binding: interfaces.BindingInWhenOnSyntax<any> = container.bind(provide).to(useClass);
+    if (noSingleton) binding.inTransientScope();
   },
   useValue: (container: Container, { provide, useValue }: H74_RD.ValueBinding) => {
     container.bind(provide).toConstantValue(useValue);
