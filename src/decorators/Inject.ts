@@ -2,13 +2,9 @@ import { interfaces } from "inversify";
 import { componentInject } from "../injections/component.injection";
 import { serviceInject } from "../injections/service.injection";
 
-export function Inject(
-  target: object,
-  propertyKey: string | symbol,
-  parameterIndex?: number
-): PropertyDescriptor | void;
-export function Inject(identifier: any): ParameterDecorator;
-export function Inject(...args: any[]): PropertyDescriptor | ParameterDecorator | void {
+export function Inject(target: object, propertyKey: string | symbol, parameterIndex?: number): any;
+export function Inject(identifier: any): any;
+export function Inject(...args: any[]): any {
   if (args.length > 1) {
     const [target, propertyKey, parameterIndex]: any = args;
     return decorate(target, propertyKey, parameterIndex);
