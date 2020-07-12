@@ -10,13 +10,12 @@ install:
 before_deploy:
   - npm run build
 deploy:
-  matrix:
-    - provider: npm
-      email: novikovio74@gmail.com
-      skip_cleanup: true
-      tag: latest
-      on:
-        branch: master
-        repo: Hooked74/react-di
+  provider: npm
+  email: novikovio74@gmail.com
+  skip_cleanup: true
+  tag: latest
+  on:
+    branch: master
+    repo: Hooked74/react-di
   api_key:
     secure: NNXRX1xuy2VtTz14mv80YICRztSaQaHoJK47xRt3dn21Tuy6h03kPcMDF2baGPL5jUFVxnU5j4/Fzt29pQSrbPbAxL7AcuuyfUDDqnAOebuL72A8QOweFxh14WF3uYyyYM8lk0q+zzVXoXVyPGcwb9AzrYqWxp1w+xmv8BmkKlwwD3Y5T/LqBhOzzLesKmqf5EYE6HT4/2Al+L5BsZi7f9vpw5kPFQuB6nIbw7Bg701tFahYPtzuCA93FtGlaMZj9WA2YJOVmTRWZ67k5UD8TlcwSEW6TTcw+3iNzrRY81Sljb6rR7De9Gk3j4/tPNDB+KgK+HnHbV5rQdVpD3gkLE2/T5hovREjCt8tbPqLzmL3KPKqJfoK1IXv9Tjgc6O6QOZjVvxgo/6DChZuZtGF+YN3hCObofguSbcH7CswT/O+Ma9B2MAOVnh8Q+p6TgEdpS8AD8Tf6VuQW6FuxkLLUIv6/iqb7Vg6MJ63EIUdzE3W1AMsG66R7LODGcOmS9tBTHr3QnIDXWtUGBdAuOso5Y2YJUZ3nwSmBazRXARH+mP8EYTyjrKdiPyIYQ2fu7JWAvQCn475yjuHFT8XoMDsEe0eBOEHZUpIOsNAQvylPoTxAaoTXjbwQP1hTS4+CyVgNM7ECoROLaO+aDbCZLEBw22VK8ntF+p+rVIgy+4HEJM=
