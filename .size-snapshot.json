@@ -1,0 +1,32 @@
+{
+  "react-di.min.js": {
+    "bundled": 89486,
+    "minified": 89351,
+    "gzipped": 26094
+  },
+  "react-di.js": {
+    "bundled": 249887,
+    "minified": 91540,
+    "gzipped": 26588
+  },
+  "react-di.cjs.js": {
+    "bundled": 13927,
+    "minified": 8503,
+    "gzipped": 2686
+  },
+  "react-di.esm.js": {
+    "bundled": 13105,
+    "minified": 7832,
+    "gzipped": 2570,
+    "treeshaked": {
+      "rollup": {
+        "code": 3667,
+        "import_statements": 939
+      },
+      "webpack": {
+        "code": 5372
+      }
+    }
+  },
+  "module": "2.62 kB"
+}

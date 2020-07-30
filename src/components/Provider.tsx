@@ -1,46 +1,31 @@
-import React, { Component, ComponentClass, ReactElement, ReactNode } from "react";
+import React, { Component, ComponentClass, ReactNode } from "react";
 import { Container } from "inversify";
-import PropTypes from "prop-types";
+import { ProviderContext, ProviderContextType } from "../contexts/ProviderContext";
 
 export interface ProviderProps {
   container: Container;
   imports?: ComponentClass[];
 }
 
-export interface ProviderContext {
-  container: Container;
-}
-
 export class Provider extends Component<ProviderProps> {
-  public static childContextTypes: any = {
-    container: PropTypes.object.isRequired,
-  };
-  public static contextTypes: any = { container: PropTypes.object };
-  public static isReact16Plus: boolean = parseFloat(React.version) >= 16;
+  public static contextType: typeof ProviderContext = ProviderContext;
 
-  constructor(props: ProviderProps, context: ProviderContext) {
+  constructor(props: ProviderProps, context: ProviderContextType) {
     super(props, context);
-
-    if (!Provider.isReact16Plus) {
-      this.render = () => React.Children.only(this.props.children) as any;
-    }
-  }
-
-  public getChildContext(): ProviderContext {
-    const { container }: ProviderProps = this.props;
-    this.trySetParentContainer(container);
-    return { container };
+    this.trySetParentContainer(this.props.container);
   }
 
   private trySetParentContainer(container: Container): void {
-    if (this.context.container && !container.parent) {
+    if (this.context?.container && !container.parent) {
       container.parent = this.context.container;
     }
   }
 
   public render(): ReactNode {
-    return React.Children.toArray(this.props.children).map((child: ReactNode, index: int) =>
-      React.cloneElement(child as ReactElement<any>, { key: index })
+    return (
+      <ProviderContext.Provider value={{ container: this.props.container }}>
+        {this.props.children}
+      </ProviderContext.Provider>
     );
   }
 }

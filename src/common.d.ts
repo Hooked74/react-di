@@ -42,8 +42,8 @@ declare namespace ReactDiCommon {
   }
 
   interface ModuleCreationOptions {
-    getContainer(this: React.Component): Container;
-    getChild(this: React.Component): React.ReactNode;
+    getContainer(module: React.Component): Container;
+    getChild(module: React.Component): React.ReactNode;
   }
 
   interface ContainerOptions {

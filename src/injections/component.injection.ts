@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import { Component, ComponentClass } from "react";
+import { Component } from "react";
 import { interfaces } from "inversify";
+import { ProviderContext, ProviderContextType } from "../contexts/ProviderContext";
 
 export function componentInject(
   target: any,
@@ -12,10 +12,10 @@ export function componentInject(
     target,
     propertyKey
   );
-  const isArrayType: boolean = type === Array;
-  identifier = identifier || type;
+  if (!identifier) identifier = type;
+  const isArrayType: boolean = identifier === Array;
 
-  ensureContainerContextExists(target.constructor);
+  target.constructor.contextType = ProviderContext;
   return setDependentProperty(target, propertyKey, identifier, isArrayType);
 }
 
@@ -31,8 +31,8 @@ function setDependentProperty(
     configurable: true,
     enumerable: true,
     get(): any {
-      checkIfContainerExists(this as any);
-      const value: any = (this as any).context.container[GET_KEY](identifier);
+      checkIfContainerExists((this as Component).context, this.constructor.name);
+      const value: any = (this as Component).context.container[GET_KEY](identifier);
       Object.defineProperty(this, propertyKey, { value });
 
       return value;
@@ -43,20 +43,11 @@ function setDependentProperty(
   };
 }
 
-function checkIfContainerExists(component: Component): void {
-  if (!component.context || !component.context.container) {
+export function checkIfContainerExists(context: ProviderContextType, name: string): void {
+  if (!context || !context.container) {
     throw new Error(
-      `Component "${component.constructor.name}" need to be nested in a Module or Provider Component` +
+      `Component "${name}" need to be nested in a Module or Provider Component` +
         ` to use dependency injection.`
     );
-  }
-}
-
-function ensureContainerContextExists(componentClass: ComponentClass): void {
-  if (!componentClass.contextTypes) {
-    componentClass.contextTypes = {};
-  }
-  if (!componentClass.contextTypes.container) {
-    componentClass.contextTypes.container = PropTypes.object;
   }
 }

@@ -47,6 +47,7 @@ const commonjsArgs = {
   include: "node_modules/**",
   namedExports: {
     "node_modules/react/index.js": [
+      "useContext",
       "createContext",
       "forwardRef",
       "createElement",

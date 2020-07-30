@@ -163,6 +163,18 @@ class UserComponent extends Component<any, any> {
 }
 ```
 
+### Inject into React Functional Components
+Dependencies of react component need be injected via `useInject` hook:
+```typescript jsx
+import {useInject} from '@hooked74/react-di';
+
+const UserComponent = () => {
+  const [otherService, config, translation]: [OtherService, Config, Translation] = useInject(OtherService, CONFIG_TOKEN, TRANSLATION_TOKEN)
+
+  ...
+}
+```
+
 ### Inject into Services
 Dependencies of services will be injected via constructor injection:
 ```typescript
@@ -260,6 +272,8 @@ export class UserService {}
 ### Inject
 The `Inject`/`Inject(Identifier)` decorator tells the di-system what need to be injected
 and in which property the injected value should be referenced.
+
+For functional components an alternative is the `useInject(...Identifiers)` hook.
 
 ### Module
 All components that should be feedable with the defined providers,

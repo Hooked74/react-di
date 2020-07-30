@@ -1,21 +1,21 @@
-import React, { Component, ReactNode, ComponentClass } from "react";
+import React, { Component, ReactNode, ComponentType } from "react";
 import { Container } from "inversify";
 import { createModuleComponent } from "../services/module.service";
 import { Module as ModuleClass } from "../module";
 
 export function Module(options: H74_RD.ModuleOptions = {}): ClassDecorator {
-  return (target: any) => {
-    const moduleComponent: ComponentClass = createModuleComponent({
-      getContainer(this: Component): Container {
-        return ModuleClass.getModule(this.constructor).getInternalContainer(this.context);
+  return (Target: any) => {
+    const ModuleComponent: ComponentType = createModuleComponent({
+      getContainer(module: Component): Container {
+        return ModuleClass.getModule(module.constructor).getInternalContainer(module.context);
       },
-      getChild(this: Component): ReactNode {
-        return React.createElement(target, this.props);
+      getChild(module: Component): ReactNode {
+        return React.createElement(Target, module.props);
       },
     });
 
-    ModuleClass.setModule(moduleComponent, new ModuleClass(moduleComponent, options));
+    ModuleClass.setModule(ModuleComponent, new ModuleClass(ModuleComponent, options));
 
-    return moduleComponent as any;
+    return ModuleComponent as any;
   };
 }
