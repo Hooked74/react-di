@@ -1,6 +1,6 @@
 import { interfaces } from "inversify";
 import { useContext } from "react";
-import { ProviderContext, ProviderContextType } from "contexts/ProviderContext";
+import { ProviderContext, ProviderContextType } from "../contexts/ProviderContext";
 
 export const useInject: (...identifiers: interfaces.ServiceIdentifier<any>[]) => any = (
   ...identifiers: interfaces.ServiceIdentifier<any>[]
