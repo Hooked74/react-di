@@ -10,7 +10,8 @@ export function Module(options: H74_RD.ModuleOptions = {}): ClassDecorator {
         return ModuleClass.getModule(module.constructor).getInternalContainer(module.context);
       },
       getChild(module: Component): ReactNode {
-        return React.createElement(Target, module.props);
+        const { forwardRef, ...props }: any = module.props;
+        return <Target {...props} ref={forwardRef} />;
       },
     });
 

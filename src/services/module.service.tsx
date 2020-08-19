@@ -7,7 +7,7 @@ export function createModuleComponent({
   getContainer,
   getChild,
 }: H74_RD.ModuleCreationOptions): any {
-  return class extends Component {
+  class ModuleProvider extends Component {
     public static contextType: typeof ModuleContext = ModuleContext;
 
     private container: Container;
@@ -26,5 +26,9 @@ export function createModuleComponent({
         </ModuleContext.Provider>
       );
     }
-  };
+  }
+
+  return React.forwardRef((props: any, ref: any) => {
+    return <ModuleProvider {...props} forwardedRef={ref} />;
+  });
 }
