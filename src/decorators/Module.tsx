@@ -17,6 +17,8 @@ export function Module(options: H74_RD.ModuleOptions = {}): ClassDecorator {
 
     ModuleClass.setModule(ModuleComponent, new ModuleClass(ModuleComponent, options));
 
-    return ModuleComponent as any;
+    return React.forwardRef((props: any, ref: any) => (
+      <ModuleComponent {...props} forwardedRef={ref} />
+    )) as any;
   };
 }
