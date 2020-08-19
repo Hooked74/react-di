@@ -7,7 +7,7 @@ export function Module(options: H74_RD.ModuleOptions = {}): ClassDecorator {
   return (Target: any) => {
     const ModuleComponent: ComponentType = createModuleComponent({
       getContainer(module: Component): Container {
-        return ModuleClass.getModule(module.constructor).getInternalContainer(module.context);
+        return ModuleClass.getModule(ModuleComponent).getInternalContainer(module.context);
       },
       getChild(module: Component): ReactNode {
         const { forwardRef, ...props }: any = module.props;
@@ -17,8 +17,6 @@ export function Module(options: H74_RD.ModuleOptions = {}): ClassDecorator {
 
     ModuleClass.setModule(ModuleComponent, new ModuleClass(ModuleComponent, options));
 
-    return React.forwardRef((props: any, ref: any) => (
-      <ModuleComponent {...props} forwardedRef={ref} />
-    )) as any;
+    return ModuleComponent as any;
   };
 }
